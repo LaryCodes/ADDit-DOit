@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m *)",
+      "Bash(npm run *)",
+      "Bash(python *)",
+      "Bash(pip install *)",
+      "Bash(cd *)",
+      "Bash(test:*)",
+      "Bash(npx vercel deploy:*)"
+    ]
+  },
+  "mcpServers": {
+    "vercel": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.vercel.com"
+      ]
+    }
+  }
+}
