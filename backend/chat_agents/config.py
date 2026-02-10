@@ -18,7 +18,7 @@ if not OPENAI_API_KEY:
 
 # Initialize OpenAI client for Agents SDK
 # Support OpenRouter by checking if key starts with sk-or-
-if OPENAI_API_KEY.startswith("sk-or-"):
+if OPENAI_API_KEY.startswith("sk-or-v1-") or OPENAI_API_KEY.startswith("sk-or-"):
     openai_client = OpenAI(
         api_key=OPENAI_API_KEY,
         base_url="https://openrouter.ai/api/v1"
