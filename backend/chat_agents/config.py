@@ -17,7 +17,14 @@ if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable is required")
 
 # Initialize OpenAI client for Agents SDK
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
+# Support OpenRouter by checking if key starts with sk-or-
+if OPENAI_API_KEY.startswith("sk-or-"):
+    openai_client = OpenAI(
+        api_key=OPENAI_API_KEY,
+        base_url="https://openrouter.ai/api/v1"
+    )
+else:
+    openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Agent configuration
 AGENT_MODEL = os.getenv("AGENT_MODEL", "gpt-4o-mini")
