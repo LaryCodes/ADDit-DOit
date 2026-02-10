@@ -1,27 +1,33 @@
 import os
-from dotenv import load_dotenv #install library command (pip i dotenv)
-from agents import AsyncOpenAI, OpenAIChatCompletionsModel, set_tracing_disabled #install library command (pip i openai-agents)
-
+from dotenv import load_dotenv
+from agents import AsyncOpenAI, OpenAIChatCompletionsModel, set_tracing_disabled
 
 # Load environment variables from .env file
 load_dotenv()
 
-gemini_api_key = os.getenv("GEMINI_API_KEY") #get gemini api key from .env file
+# Get API key - support both OpenAI and OpenRouter
+openai_api_key = os.getenv("OPENAI_API_KEY")
+agent_model = os.getenv("AGENT_MODEL", "gpt-4o-mini")
 
-#Gemini API key not found condition
-if not gemini_api_key:
-    raise ValueError("GEMINI_API_KEY environment variable is not set. Please set it in your .env file.")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set.")
 
-
-# Provider
-provider = AsyncOpenAI(
-    api_key=gemini_api_key,
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/" #baseUrl from (Gemini Documention from Openai SDK docs)
-)
+# Configure provider based on API key type
+if openai_api_key.startswith("sk-or-v1-") or openai_api_key.startswith("sk-or-"):
+    # OpenRouter configuration
+    provider = AsyncOpenAI(
+        api_key=openai_api_key,
+        base_url="https://openrouter.ai/api/v1"
+    )
+else:
+    # Standard OpenAI configuration
+    provider = AsyncOpenAI(
+        api_key=openai_api_key
+    )
 
 # Model
 model = OpenAIChatCompletionsModel(
-    model="gemini-2.5-flash",
+    model=agent_model,
     openai_client=provider,
 )
 
