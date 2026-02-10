@@ -19,8 +19,8 @@ interface TaskItemProps {
 function TaskItem({ task, onToggleComplete, onEdit, onDelete }: TaskItemProps) {
   return (
     <div
-      className={`bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow ${
-        task.is_completed ? 'opacity-75' : ''
+      className={`bg-[#2a1f1a]/50 rounded-lg border border-yellow-500/20 p-4 hover:border-yellow-500/40 transition-all ${
+        task.is_completed ? 'opacity-60' : ''
       }`}
     >
       <div className="flex items-start gap-3">
@@ -29,29 +29,29 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }: TaskItemProps) {
           type="checkbox"
           checked={task.is_completed}
           onChange={() => onToggleComplete(task.id)}
-          className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+          className="mt-1 w-5 h-5 text-yellow-500 bg-[#1a1410] border-yellow-500/30 rounded focus:ring-2 focus:ring-yellow-500 cursor-pointer accent-yellow-500"
           aria-label={`Mark "${task.title}" as ${task.is_completed ? 'incomplete' : 'complete'}`}
         />
 
         {/* Content */}
         <div className="flex-1 min-w-0">
           <h3
-            className={`text-lg font-medium text-gray-900 mb-1 ${
-              task.is_completed ? 'line-through text-gray-500' : ''
+            className={`text-lg font-medium text-yellow-100 mb-1 ${
+              task.is_completed ? 'line-through text-yellow-100/50' : ''
             }`}
           >
             {task.title}
           </h3>
           {task.description && (
             <p
-              className={`text-sm text-gray-600 mb-2 ${
-                task.is_completed ? 'line-through text-gray-400' : ''
+              className={`text-sm text-yellow-100/70 mb-2 ${
+                task.is_completed ? 'line-through text-yellow-100/40' : ''
               }`}
             >
               {task.description}
             </p>
           )}
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-yellow-100/40">
             {new Date(task.created_at).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
@@ -65,7 +65,7 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }: TaskItemProps) {
           {onEdit && (
             <button
               onClick={() => onEdit(task)}
-              className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-2 text-yellow-100/60 hover:text-yellow-500 hover:bg-yellow-500/10 rounded transition-colors"
               aria-label={`Edit "${task.title}"`}
             >
               <svg
@@ -84,7 +84,7 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }: TaskItemProps) {
           {onDelete && (
             <button
               onClick={() => onDelete(task)}
-              className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+              className="p-2 text-yellow-100/60 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
               aria-label={`Delete "${task.title}"`}
             >
               <svg
